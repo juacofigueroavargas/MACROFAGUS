@@ -785,10 +785,6 @@ function renderHistorial(){
                     <button class="mini-btn ${activo ? "active" : ""}" onclick="activarPlan('${plan.id}')">
                         ${activo ? "Activo" : "Activar"}
                     </button>
-
-                    <button class="mini-btn" onclick="duplicarPlan('${plan.id}')">
-                        Duplicar
-                    </button>
                 </div>
             </div>
         `;
@@ -843,51 +839,6 @@ usuarioActivo.progress.planId = nuevoActivo.id;
 
 guardarUsuarioActivo();
 render();
-}
-
-function duplicarPlan(planId){
-    const planes = obtenerPlanes();
-    const original = planes.find(p => p.id === planId);
-
-    if(!original) return;
-
-    const confirmar = confirm("¿Duplicar este plan y dejarlo como nuevo plan activo?");
-
-    if(!confirmar) return;
-
-    const fechaHoy = new Date().toISOString().split("T")[0];
-
-    planes.forEach(plan => {
-        if(plan.estado === "activo"){
-            plan.estado = "finalizado";
-            plan.fechaTermino = fechaHoy;
-        }
-    });
-
-    const copia = JSON.parse(JSON.stringify(original));
-
-    copia.id = "plan_" + Date.now();
-    copia.nombre = (original.nombre || "Plan") + " copia";
-    copia.estado = "activo";
-    copia.fechaInicio = fechaHoy;
-    copia.fechaTermino = "";
-
-    copia.planner.fechaInicio = fechaHoy;
-
-    usuarioActivo.planes.push(copia);
-    usuarioActivo.planActivoId = copia.id;
-    usuarioActivo.planner = copia.planner;
-
-    usuarioActivo.progress = {
-        planId: copia.id,
-        pesoInicial: copia.planner.peso || copia.planner.pesoInicial || 0,
-pesoActual: copia.planner.peso || copia.planner.pesoInicial || 0,
-        pesoObjetivo: copia.planner.pesoObjetivo || 0,
-        historialPesos: []
-    };
-
-    guardarUsuarioActivo();
-    render();
 }
 
 function abrirModalPlanAnterior(){
