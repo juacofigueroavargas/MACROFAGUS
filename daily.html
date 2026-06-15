@@ -431,6 +431,13 @@ body{
 .food-row strong{
     color:#f8fafc;
 }  
+
+.target-card small{
+    display:block;
+    margin-top:6px;
+    color:#cbd5e1;
+    font-size:11px;
+}  
   
 @media(max-width:1100px){
     .summary-grid{grid-template-columns:repeat(2,1fr)}
@@ -857,6 +864,24 @@ function renderMeals(){
     const mealName = getMealName(meal);
     const target = getMealTargets(meal);
     const records = dailyData.records.filter(r => r.meal === mealName);
+  
+    const mealTotals = records.reduce((acc, item) => {
+    acc.kcal += getKcal(item);
+    acc.protein += Number(item.protein || 0);
+    acc.carbs += Number(item.carbs || 0);
+    acc.fat += Number(item.fat || 0);
+    return acc;
+}, {kcal:0, protein:0, carbs:0, fat:0});
+
+function faltanteTexto(consumido, objetivo, unidad){
+    const restante = objetivo - consumido;
+
+    if(restante >= 0){
+        return `Faltan ${unidad === "kcal" ? Math.round(restante) : restante.toFixed(1)} ${unidad}`;
+    }
+
+    return `Exceso ${unidad === "kcal" ? Math.abs(Math.round(restante)) : Math.abs(restante).toFixed(1)} ${unidad}`;
+}
 
     let rows = "";
 
@@ -917,23 +942,30 @@ function renderMeals(){
             </div>
 
             <div class="meal-target">
-                <div class="target-card">
-                    <span>Kcal objetivo</span>
-                    <strong>${target.kcal}</strong>
-                </div>
-                <div class="target-card">
-                    <span>Proteína</span>
-                    <strong>${target.protein} g</strong>
-                </div>
-                <div class="target-card">
-                    <span>Carbos</span>
-                    <strong>${target.carbs} g</strong>
-                </div>
-                <div class="target-card">
-                    <span>Grasas</span>
-                    <strong>${target.fat} g</strong>
-                </div>
-            </div>
+    <div class="target-card">
+        <span>Kcal</span>
+        <strong>${mealTotals.kcal} / ${target.kcal}</strong>
+        <small>${faltanteTexto(mealTotals.kcal, target.kcal, "kcal")}</small>
+    </div>
+
+    <div class="target-card">
+        <span>Proteína</span>
+        <strong>${mealTotals.protein.toFixed(1)} / ${target.protein} g</strong>
+        <small>${faltanteTexto(mealTotals.protein, target.protein, "g")}</small>
+    </div>
+
+    <div class="target-card">
+        <span>Carbos</span>
+        <strong>${mealTotals.carbs.toFixed(1)} / ${target.carbs} g</strong>
+        <small>${faltanteTexto(mealTotals.carbs, target.carbs, "g")}</small>
+    </div>
+
+    <div class="target-card">
+        <span>Grasas</span>
+        <strong>${mealTotals.fat.toFixed(1)} / ${target.fat} g</strong>
+        <small>${faltanteTexto(mealTotals.fat, target.fat, "g")}</small>
+    </div>
+</div>
 
             <div class="food-scroll">
     ${rows}
