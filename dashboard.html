@@ -594,12 +594,94 @@ body{
 }  
   
 .dashboard-content{
-    display:block;
     height:100%;
     min-height:0;
     display:grid;
-    grid-template-rows:auto 1fr 1fr;
-    gap:12px;
+    grid-template-rows:auto 1fr;
+    gap:14px;
+}  
+
+.hero{
+    display:grid;
+    grid-template-columns:1.4fr .9fr;
+    gap:14px;
+}
+
+.progress-card{
+    background:
+        linear-gradient(145deg,rgba(34,197,94,.16),rgba(20,184,166,.07)),
+        rgba(15,23,42,.82);
+    border:1px solid rgba(34,197,94,.18);
+    border-radius:26px;
+    padding:22px;
+}
+
+.progress-main{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:20px;
+}
+
+.big-number{
+    font-size:58px;
+    font-weight:950;
+    line-height:1;
+}
+
+.muted{
+    color:#93a4bd;
+}
+
+.progress-context{
+    margin-top:10px;
+    font-size:13px;
+    font-weight:600;
+    opacity:.75;
+}
+
+.goal{
+    text-align:right;
+}
+
+.goal strong{
+    font-size:34px;
+}
+
+.summary-card{
+    background:rgba(15,23,42,.82);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:26px;
+    padding:22px;
+    display:grid;
+    gap:14px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px;
+    border-radius:16px;
+    background:rgba(255,255,255,.06);
+}
+
+.summary-row span{
+    color:#9fb0ca;
+}
+
+.summary-row strong{
+    font-size:16px;
+}
+
+.icon{
+    width:42px;
+    height:42px;
+    border-radius:15px;
+    display:grid;
+    place-items:center;
+    background:rgba(34,197,94,.16);
+    color:#86efac;
 }  
   
 /* RESPONSIVE */
@@ -804,184 +886,96 @@ body{
     </div>
 </section>
 <div class="dashboard-content" id="dashboardContent">
-        <section class="kpis">
-            <div class="card kpi">
-                <div>
-                    <span>Peso actual</span>
-                    <h3 id="kpiPesoActual">-- kg</h3>
-                </div>
-                <div class="kpi-icon"><i class="fa-solid fa-weight-scale"></i></div>
+<section class="hero">
+
+    <div class="progress-card">
+        <div class="badge" id="planBadge">--</div>
+
+        <div class="progress-main">
+            <div>
+                <p class="muted">Peso actual</p>
+
+                <div class="big-number" id="pesoActualHero">-- kg</div>
+
+                <p class="muted progress-context" id="pesoContextoHero">
+                    Inicio -- kg · Meta -- kg
+                </p>
             </div>
 
-            <div class="card kpi">
-                <div>
-                    <span>Calorías objetivo</span>
-                    <h3 id="kpiCalorias">--</h3>
-                </div>
-                <div class="kpi-icon"><i class="fa-solid fa-fire"></i></div>
+            <div class="goal">
+                <p class="muted" id="faltanLabelHero">Faltan</p>
+                <strong id="faltanHero">-- kg</strong>
             </div>
+        </div>
 
-            <div class="card kpi">
-                <div>
-                    <span>Peso meta</span>
-                    <h3 id="kpiPesoMeta">-- kg</h3>
-                </div>
-                <div class="kpi-icon"><i class="fa-solid fa-bullseye"></i></div>
-            </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="planProgressFill"></div>
+        </div>
 
-            <div class="card kpi">
-                <div>
-                    <span>Plan Activo</span>
-                    <h3 id="kpiPlanActivo">--</h3>
-                </div>
-                <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
-            </div>
-        </section>
+        <div class="progress-text">
+            <span>Inicio: <strong id="planInicio">--</strong></span>
+            <span>Avance: <strong id="planAvance">--%</strong></span>
+        </div>
+    </div>
+
+    <div class="summary-card" id="resumenRapido">
+        <div class="summary-row">
+            <span>Calorías objetivo</span>
+            <strong>--</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Comidas</span>
+            <strong>--</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Entreno</span>
+            <strong>--</strong>
+        </div>
+
+        <div class="summary-row">
+            <span>Meta estimada</span>
+            <strong>--</strong>
+        </div>
+    </div>
+
+</section>
 
         <section class="dashboard-grid">
 
-            <div class="card">
-                <div class="card-title">
-                    <h3>Plan activo</h3>
-                    <span class="badge" id="planBadge">--</span>
-                </div>
+    <div class="card">
+        <div class="card-title">
+            <h3>Últimos registros</h3>
+            <div class="icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        </div>
 
-                <div class="plan-main">
-                    <div class="info-box">
-                        <span>Inicio</span>
-                        <strong id="planInicio">--</strong>
-                    </div>
-
-                    <div class="info-box">
-                        <span>Peso inicial</span>
-                        <strong id="planPesoInicial">-- kg</strong>
-                    </div>
-
-                    <div class="info-box">
-                        <span>Faltan</span>
-                        <strong id="planFaltan">-- kg</strong>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="planProgressFill"></div>
-                    </div>
-
-                    <div class="progress-text">
-                        <span>Avance del plan</span>
-                        <strong id="planAvance">--%</strong>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-    <div class="card-title">
-        <h3>Últimos registros</h3>
+        <div class="list" id="ultimosRegistros"></div>
     </div>
 
-    <div class="list" id="ultimosRegistros">
-        <div class="list-item">
-            <div>
-                <strong>-- kg</strong>
-                <span>Sin registros</span>
-            </div>
-            <span>--</span>
+    <div class="card">
+        <div class="card-title">
+            <h3>Macros de hoy</h3>
+            <div class="icon"><i class="fa-solid fa-utensils"></i></div>
+        </div>
+
+        <div id="mensajeMacrosHoy"></div>
+
+        <div id="macrosContainer">
+            <!-- deja aquí tus macros actuales -->
         </div>
     </div>
-</div>
 
-            <div class="card">
-                <div class="card-title">
-                    <h3>Objetivo</h3>
-                </div>
-
-                <div class="list" id="fechasImportantes">
-    <div class="list-item">
-        <div>
-            <strong>Sin fechas</strong>
-            <span>Faltan datos del plan</span>
+    <div class="card">
+        <div class="card-title">
+            <h3>Progreso</h3>
+            <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
         </div>
-        <span>--</span>
-    </div>
-</div>
-            </div>
 
-        </section>
-
-        <section class="dashboard-grid">
-
-            <div class="card">
-                <div class="card-title">
-                    <h3>Macros de hoy</h3>
-                    <span class="badge">Daily</span>
-                </div>
-
-                <div id="mensajeMacrosHoy"></div>
-              
-                <div id="macrosContainer">
-                <div class="macro">
-                    <div class="macro-top">
-                        <strong>Proteínas</strong>
-                        <span id="macroProteinasTexto">-- / -- g</span>
-                    </div>
-                    <div class="macro-bar">
-                        <div class="macro-fill" id="macroProteinasFill" style="width:0%"></div>
-                    </div>
-                </div>
-
-                <div class="macro">
-                    <div class="macro-top">
-                        <strong>Carbohidratos</strong>
-                        <span id="macroCarbosTexto">-- / -- g</span>
-                    </div>
-                    <div class="macro-bar">
-                        <div class="macro-fill" id="macroCarbosFill" style="width:0%"></div>
-                    </div>
-                </div>
-
-                <div class="macro">
-                    <div class="macro-top">
-                        <strong>Grasas</strong>
-                        <span id="macroGrasasTexto">-- / -- g</span>
-                    </div>
-                    <div class="macro-bar">
-                        <div class="macro-fill" id="macroGrasasFill" style="width:0%"></div>
-                    </div>
-                </div>
-                  </div>
-            </div>
-
-            <div class="card">
-    <div class="card-title">
-        <h3>Estado general</h3>
-        <span class="badge" id="estadoBadge">--</span>
+        <div class="list" id="estadoGeneral"></div>
     </div>
 
-    <div class="list" id="estadoGeneral">
-        <div class="list-item">
-            <div>
-                <strong>Sin información</strong>
-                <span>Faltan datos del plan</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-            <div class="card">
-                <div class="card-title">
-                    <h3>Resumen rápido</h3>
-                </div>
-
-                <div class="list" id="resumenRapido">
-    <div class="list-item">
-        <strong>Sin datos</strong>
-        <span>Faltan datos del plan</span>
-    </div>
-</div>
-            </div>
-
-        </section> 
+</section>
       </div>
 <section class="quick-actions" id="quickActions" style="display:none;">
 
@@ -1201,13 +1195,11 @@ function cargarDashboard(){
     document.getElementById("subtituloDashboard").textContent =
         `Resumen general de ${nombreCompleto || usuarioActivo.usuario || "tu usuario"}.`;
 
-    cargarKPIs(usuarioActivo);
     cargarPlanActivo(usuarioActivo);
-    cargarUltimosRegistros(usuarioActivo);
-    cargarFechasImportantes(usuarioActivo);
-    cargarMacrosHoy(usuarioActivo);
-    cargarEstadoGeneral(usuarioActivo);
-    cargarResumenRapido(usuarioActivo);
+cargarUltimosRegistros(usuarioActivo);
+cargarMacrosHoy(usuarioActivo);
+cargarEstadoGeneral(usuarioActivo);
+cargarResumenRapido(usuarioActivo);
 
     const tienePlanner =
         Number(planner.caloriasObjetivo || 0) > 0 &&
@@ -1222,80 +1214,47 @@ function cargarDashboard(){
         cargarOnboarding(usuarioActivo);
 }
   
-function cargarKPIs(usuarioActivo){
-    const datosActivos = obtenerPlanActivo(usuarioActivo);
-const planner = datosActivos.planner;
-const progress = datosActivos.progress;
-
-    const registrosPeso =
-    progress.historialPesos ||
-    progress.registros ||
-    progress.pesajes ||
-    [];
-
-const pesoActualKPI =
-    registrosPeso.length > 0
-        ? progress.pesoActual
-        : planner.peso || planner.pesoInicial || progress.pesoActual || 0;
-
-document.getElementById("kpiPesoActual").textContent =
-    pesoActualKPI ? `${pesoActualKPI} kg` : "-- kg";
-
-    document.getElementById("kpiCalorias").textContent =
-        planner.caloriasObjetivo ? planner.caloriasObjetivo : "--";
-
-    const pesoMeta =
-    progress.pesoObjetivo ||
-    planner.pesoObjetivo ||
-    0;
-
-document.getElementById("kpiPesoMeta").textContent =
-    pesoMeta ? `${pesoMeta} kg` : "-- kg";
-
-    const planTexto =
-    planner.objetivo || planner.tipoPlan || "--";
-
-document.getElementById("kpiPlanActivo").textContent =
-    planTexto;
-}  
-
 function cargarPlanActivo(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
-const planner = datosActivos.planner;
-const progress = datosActivos.progress;
+    const planner = datosActivos.planner;
+    const progress = datosActivos.progress;
 
-    const tipoPlan = planner.tipoPlan || "--";
+    const registrosPeso =
+        progress.historialPesos ||
+        progress.registros ||
+        progress.pesajes ||
+        [];
 
-const registrosPeso =
-    progress.historialPesos ||
-    progress.registros ||
-    progress.pesajes ||
-    [];
+    const primerRegistro = registrosPeso.length > 0 ? registrosPeso[0].fecha : null;
 
-const primerRegistro =
-    registrosPeso.length > 0
-        ? registrosPeso[0].fecha
-        : null;
+    const fechaInicio =
+        primerRegistro ||
+        progress.fechaInicioPlan ||
+        "--";
 
-const fechaInicio =
-    primerRegistro ||
-    progress.fechaInicioPlan ||
-    "--";
+    const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
 
-const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
+    const pesoActual = Number(
+        registrosPeso.length > 0
+            ? progress.pesoActual || registrosPeso.at(-1)?.peso
+            : planner.peso || planner.pesoInicial || progress.pesoActual || 0
+    );
 
-const pesoActual = Number(
-    registrosPeso.length > 0
-        ? progress.pesoActual
-        : planner.peso || planner.pesoInicial || progress.pesoActual || 0
-);
     const pesoObjetivo = Number(progress.pesoObjetivo || planner.pesoObjetivo || 0);
 
-    document.getElementById("planBadge").textContent = tipoPlan;
-    document.getElementById("planInicio").textContent =
-    fechaInicio !== "--" ? formatearFechaCorta(fechaInicio) : "--";
-    document.getElementById("planPesoInicial").textContent =
-        pesoInicial ? `${pesoInicial} kg` : "-- kg";
+    const tipoPlan = planner.tipoPlan || "--";
+    const ajuste = planner.ajusteCalorico || planner.ajusteCalorias || planner.deficit || planner.superavit || "";
+
+    document.getElementById("planBadge").textContent =
+        tipoPlan !== "--"
+            ? `${tipoPlan} ${ajuste ? "· " + Math.abs(Number(ajuste)) + " kcal" : ""}`
+            : "--";
+
+    document.getElementById("pesoActualHero").textContent =
+        pesoActual ? `${pesoActual} kg` : "-- kg";
+
+    document.getElementById("pesoContextoHero").textContent =
+        `Inicio ${pesoInicial || "--"} kg · Meta ${pesoObjetivo || "--"} kg`;
 
     let faltan = 0;
     let avance = 0;
@@ -1308,40 +1267,24 @@ const pesoActual = Number(
         avance = total > 0 ? Math.min((logrado / total) * 100, 100) : 0;
     }
 
-    const planFaltan = document.getElementById("planFaltan");
-const labelFaltan =
-    planFaltan.parentElement.querySelector("span");
+    if(avance >= 100 || faltan <= 0.1){
+        document.getElementById("faltanLabelHero").textContent = "Completado";
+        document.getElementById("faltanHero").textContent = "✓";
+    }else{
+        document.getElementById("faltanLabelHero").textContent = "Faltan";
+        document.getElementById("faltanHero").textContent =
+            pesoObjetivo ? `${faltan.toFixed(1)} kg` : "-- kg";
+    }
 
-if(avance >= 100){
-    labelFaltan.textContent = "Estado";
-    planFaltan.textContent = "Cumplido";
-}
-else if(pesoObjetivo){
-    labelFaltan.textContent = "Faltan";
-    planFaltan.textContent =
-        `${faltan.toFixed(1)} kg`;
-}
-else{
-    labelFaltan.textContent = "Faltan";
-    planFaltan.textContent =
-        "-- kg";
-}
+    document.getElementById("planInicio").textContent =
+        fechaInicio !== "--" ? formatearFechaCorta(fechaInicio) : "--";
 
     document.getElementById("planAvance").textContent =
         `${avance.toFixed(0)}%`;
 
-    const barra = document.getElementById("planProgressFill");
-
-barra.style.width = `${avance}%`;
-
-if(avance >= 100){
-    barra.style.boxShadow =
-        "0 0 14px rgba(74,222,128,.7)";
+    document.getElementById("planProgressFill").style.width =
+        `${avance}%`;
 }
-else{
-    barra.style.boxShadow = "none";
-}
-}  
 
 function cargarUltimosRegistros(usuarioActivo){
     const progress = usuarioActivo.progress || {};
@@ -1389,131 +1332,6 @@ const registros = registrosBase.filter(registro =>
         `;
     });
 }  
-
-function cargarFechasImportantes(usuarioActivo){
-    const datosActivos = obtenerPlanActivo(usuarioActivo);
-    const planner = datosActivos.planner;
-    const progress = datosActivos.progress;
-
-    const contenedor = document.getElementById("fechasImportantes");
-
-    const pesoActual = Number(progress.pesoActual || 0);
-    const pesoObjetivo = Number(progress.pesoObjetivo || planner.pesoObjetivo || 0);
-  
-    const tienePlan =
-    pesoActual > 0 &&
-    pesoObjetivo > 0;
-
-    const cumplido =
-    tienePlan &&
-    pesoActual === pesoObjetivo;
-
-    const fechaMeta =
-        progress.fechaMetaEstimada ||
-        planner.fechaMeta ||
-        null;
-
-    let tiempoRestante = "--";
-
-if(fechaMeta){
-
-    const hoy = new Date();
-    const meta = new Date(fechaMeta);
-
-    let meses =
-        (meta.getFullYear() - hoy.getFullYear()) * 12 +
-        (meta.getMonth() - hoy.getMonth());
-
-    let dias = meta.getDate() - hoy.getDate();
-
-    if(dias < 0){
-        meses--;
-
-        const ultimoDiaMesAnterior = new Date(
-            meta.getFullYear(),
-            meta.getMonth(),
-            0
-        ).getDate();
-
-        dias += ultimoDiaMesAnterior;
-    }
-
-    if(meses <= 0){
-        tiempoRestante = `${dias} días`;
-    }
-    else{
-        tiempoRestante = `${meses} mes${meses > 1 ? "es" : ""} y ${dias} día${dias !== 1 ? "s" : ""}`;
-    }
-}
-    if(!tienePlan){
-    contenedor.innerHTML = `
-        <div class="list-item">
-            <div>
-                <strong>Sin objetivo</strong>
-                <span>Primero crea un plan en Planner.</span>
-            </div>
-            <span>--</span>
-        </div>
-    `;
-    return;
-}
-  
-    if(cumplido){
-    const resultado = obtenerResultadoPlan(usuarioActivo);
-
-    contenedor.innerHTML = `
-        <div class="list-item">
-            <div>
-                <strong>Objetivo alcanzado</strong>
-                <span>Resultado final del plan</span>
-            </div>
-            <span>✅</span>
-        </div>
-
-        <div class="list-item">
-            <div>
-                <strong>${resultado.pesoInicial} → ${resultado.pesoFinal} kg</strong>
-                <span>Peso inicial y final</span>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div>
-                <strong>${resultado.cambio.toFixed(1)} kg</strong>
-                <span>Cambio total</span>
-            </div>
-        </div>
-    `;
-
-    return;
-}
-  
-    contenedor.innerHTML = `
-        <div class="list-item">
-            <div>
-                <strong>Meta estimada</strong>
-                <span>Fecha proyectada</span>
-            </div>
-            <span>${fechaMeta ? formatearFechaCorta(fechaMeta) : "--"}</span>
-        </div>
-
-        <div class="list-item">
-            <div>
-                <strong>Peso objetivo</strong>
-                <span>Meta definida</span>
-            </div>
-            <span>${pesoObjetivo} kg</span>
-        </div>
-
-        <div class="list-item">
-    <div>
-        <strong>Faltan</strong>
-        <span>Para la fecha estimada</span>
-    </div>
-    <span>${tiempoRestante}</span>
-</div>
-    `;
-}
 
 function cargarMacrosHoy(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
@@ -1566,26 +1384,31 @@ function cargarMacrosHoy(usuarioActivo){
 
 function cargarEstadoGeneral(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
-const planner = datosActivos.planner;
-const progress = datosActivos.progress;
+    const planner = datosActivos.planner;
+    const progress = datosActivos.progress;
 
-    const pesoInicial = Number(planner.pesoInicial || progress.pesoInicial || 0);
-    const pesoActual = Number(progress.pesoActual || 0);
-    const pesoObjetivo = Number(
-    progress.pesoObjetivo ||
-    planner.pesoObjetivo ||
-    0
-);
-    const tipoPlan = planner.tipoPlan || "--";
-
-    const badge = document.getElementById("estadoBadge");
     const contenedor = document.getElementById("estadoGeneral");
 
-    contenedor.innerHTML = "";
+    const registros =
+        progress.historialPesos ||
+        progress.registros ||
+        progress.pesajes ||
+        [];
 
-    if(!pesoInicial || !pesoActual || !pesoObjetivo){
-        badge.textContent = "--";
+    const fechaInicio =
+        registros[0]?.fecha ||
+        progress.fechaInicioPlan ||
+        null;
 
+    const fechaMeta =
+        progress.fechaMetaEstimada ||
+        planner.fechaMeta ||
+        null;
+
+    const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
+    const pesoActual = Number(progress.pesoActual || registros.at(-1)?.peso || 0);
+
+    if(!pesoInicial || !pesoActual){
         contenedor.innerHTML = `
             <div class="list-item">
                 <div>
@@ -1597,73 +1420,15 @@ const progress = datosActivos.progress;
         return;
     }
 
+    const diasPlan = calcularDiasEntrePlan(fechaInicio, null) || "--";
     const cambio = pesoActual - pesoInicial;
-    const faltan = Math.abs(pesoActual - pesoObjetivo);
-
-    let estado = "En progreso";
-    let mensaje = "Seguimiento correcto";
-
-    if(faltan === 0){
-    estado = "Objetivo cumplido";
-    mensaje = "Meta alcanzada";
-}
-else if(faltan <= 0.3){
-    estado = "Cerca de la meta";
-    mensaje = "Muy cerca de la meta";
-}
-
-    badge.textContent = estado;
-    badge.classList.remove(
-    "estado-ok",
-    "estado-cerca",
-    "estado-progreso"
-);
-
-if(estado === "Objetivo cumplido"){
-    badge.classList.add("estado-ok");
-}
-else if(estado === "Cerca de la meta"){
-    badge.classList.add("estado-cerca");
-}
-else{
-    badge.classList.add("estado-progreso");
-}
-
-  if(faltan <= 0.1){
-
-    const resultado = obtenerResultadoPlan(usuarioActivo);
+    const tiempoRestante = calcularTiempoRestante(fechaMeta);
 
     contenedor.innerHTML = `
         <div class="list-item">
             <div>
-                <strong>Plan completado</strong>
-                <span>Objetivo alcanzado correctamente</span>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div>
-                <strong>${resultado.dias || "--"} días</strong>
+                <strong>${diasPlan} días</strong>
                 <span>Duración del plan</span>
-            </div>
-        </div>
-
-        <div class="list-item">
-            <div>
-                <strong>${Math.abs(resultado.promedioSemanal).toFixed(2)} kg/sem</strong>
-                <span>Promedio semanal</span>
-            </div>
-        </div>
-    `;
-
-    return;
-}
-  
-    contenedor.innerHTML = `
-        <div class="list-item">
-            <div>
-                <strong>${mensaje}</strong>
-                <span>Estado calculado según el plan activo.</span>
             </div>
         </div>
 
@@ -1676,12 +1441,12 @@ else{
 
         <div class="list-item">
             <div>
-                <strong>${faltan.toFixed(1)} kg</strong>
-                <span>Diferencia con la meta</span>
+                <strong>${tiempoRestante}</strong>
+                <span>Tiempo restante estimado</span>
             </div>
         </div>
     `;
-}  
+}
 
 function cargarResumenRapido(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
@@ -1691,8 +1456,7 @@ function cargarResumenRapido(usuarioActivo){
 
     const contenedor = document.getElementById("resumenRapido");
 
-    const tipoPlan = planner.tipoPlan || "--";
-    const ajuste = planner.ajusteCalorico || planner.ajusteCalorias || planner.deficit || planner.superavit || "--";
+    const calorias = planner.caloriasObjetivo || "--";
     const comidas = planner.cantidadComidas || planner.numeroComidas || planner.comidas || daily.numeroComidas || "--";
 
     const entreno =
@@ -1702,49 +1466,69 @@ function cargarResumenRapido(usuarioActivo){
         progress.actividad ||
         "--";
 
-let diasPlan = "--";
-
-const fechaInicioPlan =
-    progress.fechaInicioPlan ||
-    null;
-
-const fechaTerminoPlan =
-    datosActivos.plan?.fechaTermino ||
-    progress.fechaTermino ||
-    planner.fechaTermino ||
-    null;
-
-const diasCalculados = calcularDiasEntrePlan(
-    fechaInicioPlan,
-    fechaTerminoPlan
-);
-
-if(diasCalculados){
-    diasPlan = diasCalculados;
-}
+    const fechaMeta =
+        progress.fechaMetaEstimada ||
+        planner.fechaMeta ||
+        null;
 
     contenedor.innerHTML = `
-        <div class="list-item">
-            <strong>Plan</strong>
-            <span>${tipoPlan}${ajuste !== "--" ? " " + ajuste + " kcal" : ""}</span>
+        <div class="summary-row">
+            <span>Calorías objetivo</span>
+            <strong>${calorias}</strong>
         </div>
 
-        <div class="list-item">
-            <strong>Comidas</strong>
-            <span>${comidas !== "--" ? comidas + " al día" : "--"}</span>
+        <div class="summary-row">
+            <span>Comidas</span>
+            <strong>${comidas !== "--" ? comidas + " al día" : "--"}</strong>
         </div>
 
-        <div class="list-item">
-            <strong>Entreno</strong>
-            <span>${formatearActividad(entreno)}</span>
+        <div class="summary-row">
+            <span>Entreno</span>
+            <strong>${formatearActividad(entreno).split(" · ")[0]}</strong>
         </div>
 
-        <div class="list-item">
-            <strong>Duración</strong>
-<span>${diasPlan || "--"} días</span>
+        <div class="summary-row">
+            <span>Meta estimada</span>
+            <strong>${fechaMeta ? formatearFechaCorta(fechaMeta) : "--"}</strong>
         </div>
     `;
 }
+
+function calcularTiempoRestante(fechaMeta){
+    if(!fechaMeta) return "--";
+
+    const hoy = new Date();
+    const meta = new Date(fechaMeta);
+
+    hoy.setHours(0,0,0,0);
+    meta.setHours(0,0,0,0);
+
+    if(meta <= hoy) return "0 días";
+
+    let meses =
+        (meta.getFullYear() - hoy.getFullYear()) * 12 +
+        (meta.getMonth() - hoy.getMonth());
+
+    let dias = meta.getDate() - hoy.getDate();
+
+    if(dias < 0){
+        meses--;
+
+        const ultimoDiaMesAnterior = new Date(
+            meta.getFullYear(),
+            meta.getMonth(),
+            0
+        ).getDate();
+
+        dias += ultimoDiaMesAnterior;
+    }
+
+    if(meses <= 0){
+        return `${dias} día${dias !== 1 ? "s" : ""}`;
+    }
+
+    return `${meses} mes${meses > 1 ? "es" : ""} y ${dias} día${dias !== 1 ? "s" : ""}`;
+}  
   
 function formatearFechaCorta(fecha){
     if(!fecha || fecha === "--") return "--";
