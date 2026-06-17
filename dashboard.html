@@ -251,6 +251,9 @@ body{
 }
 
 .badge{
+    display:inline-block;
+    width:fit-content;
+
     padding:7px 12px;
     border-radius:999px;
     background:rgba(34,197,94,.14);
@@ -1246,7 +1249,12 @@ function cargarPlanActivo(usuarioActivo){
 
     const pesoObjetivo = Number(progress.pesoObjetivo || planner.pesoObjetivo || 0);
 
-    const tipoPlan = planner.tipoPlan || "--";
+    const tipoPlan =
+    planner.tipoPlan === "deficit"
+        ? "Déficit"
+        : planner.tipoPlan === "superavit"
+        ? "Superávit"
+        : planner.tipoPlan || "--";
     const ajuste = planner.ajusteCalorico || planner.ajusteCalorias || planner.deficit || planner.superavit || "";
 
     document.getElementById("planBadge").textContent =
