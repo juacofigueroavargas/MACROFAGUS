@@ -21,12 +21,12 @@ body{
     color:#f8fafc;
     padding:14px;
     overflow-x:hidden;
-    overflow-y:hidden;
+    overflow-y:auto;
 }
 
 .app{
     width:100%;
-    height:calc(100vh - 28px);
+    min-height:calc(100vh - 28px);
     max-width:1500px;
     margin:auto;
     display:grid;
@@ -108,11 +108,10 @@ body{
 
 /* MAIN */
 .main{
-    height:100%;
+    min-height:100%;
     display:grid;
-    grid-template-rows:auto 1fr 38px;
+    grid-template-rows:auto auto auto;
     gap:12px;
-    min-height:0;
 }
 
 .header{
@@ -237,8 +236,7 @@ body{
 }
 
 .dashboard-grid > .card{
-    height:100%;
-    min-height:0;
+    min-height:260px;
 }
   
 .card-title{
@@ -594,12 +592,12 @@ body{
 }  
   
 .dashboard-content{
-    height:100%;
+    height:auto;
     min-height:0;
     display:grid;
-    grid-template-rows:auto 1fr;
-    gap:14px;
-}  
+    grid-template-rows:auto auto;
+    gap:16px;
+}
 
 .hero{
     display:grid;
@@ -614,6 +612,10 @@ body{
     border:1px solid rgba(34,197,94,.18);
     border-radius:26px;
     padding:22px;
+    min-height:250px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
 }
 
 .progress-main{
@@ -655,6 +657,7 @@ body{
     padding:22px;
     display:grid;
     gap:14px;
+    min-height:250px;
 }
 
 .summary-row{
@@ -989,7 +992,7 @@ body{
         Registrar comida
     </button>
 
-    <button onclick="window.location.href='planner.html'">
+    <button onclick="window.location.href='planner.html?modo=nuevo'">
         <i class="fa-solid fa-bullseye"></i>
         Nuevo plan
     </button>
@@ -1401,12 +1404,22 @@ function cargarEstadoGeneral(usuarioActivo){
         null;
 
     const fechaMeta =
-        progress.fechaMetaEstimada ||
-        planner.fechaMeta ||
-        null;
+    progress.fechaMetaEstimada ||
+    progress.fechaObjetivo ||
+    planner.fechaMeta ||
+    planner.fechaObjetivo ||
+    datosActivos.plan?.fechaMeta ||
+    datosActivos.plan?.fechaObjetivo ||
+    null;
 
     const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
-    const pesoActual = Number(progress.pesoActual || registros.at(-1)?.peso || 0);
+    const pesoActual = Number(
+    progress.pesoActual ||
+    registros.at(-1)?.peso ||
+    planner.pesoActual ||
+    planner.peso ||
+    0
+);
 
     if(!pesoInicial || !pesoActual){
         contenedor.innerHTML = `
@@ -1450,25 +1463,51 @@ function cargarEstadoGeneral(usuarioActivo){
 
 function cargarResumenRapido(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
-    const planner = datosActivos.planner;
-    const progress = datosActivos.progress;
-    const daily = datosActivos.daily;
+    const plan = datosActivos.plan || {};
+    const planner = datosActivos.planner || {};
+    const progress = datosActivos.progress || {};
+    const daily = datosActivos.daily || {};
 
     const contenedor = document.getElementById("resumenRapido");
 
-    const calorias = planner.caloriasObjetivo || "--";
-    const comidas = planner.cantidadComidas || planner.numeroComidas || planner.comidas || daily.numeroComidas || "--";
+    const calorias =
+        planner.caloriasObjetivo ||
+        planner.caloriasFinales ||
+        planner.calorias ||
+        plan.caloriasObjetivo ||
+        plan.caloriasFinales ||
+        "--";
+
+    const comidas =
+        planner.cantidadComidas ||
+        planner.numeroComidas ||
+        planner.comidas ||
+        planner.distribucionComidas ||
+        plan.cantidadComidas ||
+        plan.numeroComidas ||
+        plan.comidas ||
+        daily.numeroComidas ||
+        "--";
 
     const entreno =
         planner.entrenamiento ||
-        progress.entrenamiento ||
+        planner.entreno ||
         planner.actividad ||
+        progress.entrenamiento ||
+        progress.entreno ||
         progress.actividad ||
+        plan.entrenamiento ||
+        plan.entreno ||
+        plan.actividad ||
         "--";
 
     const fechaMeta =
         progress.fechaMetaEstimada ||
+        progress.fechaObjetivo ||
         planner.fechaMeta ||
+        planner.fechaObjetivo ||
+        plan.fechaMeta ||
+        plan.fechaObjetivo ||
         null;
 
     contenedor.innerHTML = `
