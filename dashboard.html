@@ -1198,7 +1198,9 @@ function cargarDashboard(){
     document.getElementById("subtituloDashboard").textContent =
         `Resumen general de ${nombreCompleto || usuarioActivo.usuario || "tu usuario"}.`;
 
-    cargarPlanActivo(usuarioActivo);
+    cargarOnboarding(usuarioActivo);
+
+cargarPlanActivo(usuarioActivo);
 cargarUltimosRegistros(usuarioActivo);
 cargarMacrosHoy(usuarioActivo);
 cargarEstadoGeneral(usuarioActivo);
@@ -1214,7 +1216,6 @@ cargarResumenRapido(usuarioActivo);
 
     document.getElementById("quickActions").style.display =
         tienePlanner && tieneProgress ? "flex" : "none";
-        cargarOnboarding(usuarioActivo);
 }
   
 function cargarPlanActivo(usuarioActivo){
@@ -1666,6 +1667,8 @@ function calcularDiasEntrePlan(fechaInicio, fechaTermino){
 function actualizarMacro(textId, fillId, consumido, objetivo){
     const texto = document.getElementById(textId);
     const barra = document.getElementById(fillId);
+
+    if(!texto || !barra) return;
 
     texto.textContent = `${consumido.toFixed(0)} / ${objetivo || "--"} g`;
 
