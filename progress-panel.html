@@ -713,7 +713,7 @@ body{
                 <div class="metric-line"><span>Avance total</span><strong id="avance">0%</strong></div>
                 <div class="metric-line"><span>Días activos</span><strong id="diasActivos">--</strong></div>
                 <div class="metric-line"><span>Ritmo estimado</span><strong id="ritmoKg">--</strong></div>
-                <div class="metric-line"><span>Estado</span><strong style="color:#86efac;">En curso</strong></div>
+                <div class="metric-line"><span>Estado</span><strong id="estadoPlanTexto" style="color:#86efac;">En curso</strong></div>
             </div>
 
             <div class="analysis-card">
@@ -1082,6 +1082,11 @@ document.getElementById("faltanteLateral").textContent =
 
 document.getElementById("avance").textContent =
     avance + "%";
+  
+document.getElementById("estadoPlanTexto").textContent =
+    avance >= 100 || d.faltante <= 0.1
+        ? "Objetivo alcanzado"
+        : "En curso";  
 
 document.getElementById("estadoCalorico").textContent =
     textoEstadoCalorico();
