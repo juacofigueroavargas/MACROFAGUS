@@ -6,6 +6,7 @@
 <title>MacroFagus · Foods</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Segoe UI,system-ui,sans-serif}
@@ -471,6 +472,24 @@ body{
 
     <div class="actions">
 
+    <button class="icon-btn" onclick="exportarExcel()">
+        <i class="fa-solid fa-file-export"></i>
+        Exportar Excel
+    </button>
+
+    <button class="icon-btn" onclick="document.getElementById('excelInput').click()">
+        <i class="fa-solid fa-file-import"></i>
+        Importar Excel
+    </button>
+
+    <input 
+        type="file" 
+        id="excelInput" 
+        accept=".xlsx,.xls" 
+        style="display:none" 
+        onchange="importarExcel(event)"
+    >
+
     <button class="icon-btn" onclick="window.location.href='daily.html'">
         <i class="fa-solid fa-utensils"></i>
         Daily
@@ -822,6 +841,73 @@ function deleteFood(index){
     }
 }
 
+function normalizarCategoria(categoria){
+    const mapa = {
+        lacteos:"Lácteos",
+        "lácteos":"Lácteos",
+        "carnes y huevos":"Carnes y huevos",
+        pescados:"Pescados",
+        legumbres:"Legumbres",
+        cereales:"Cereales",
+        verduras:"Verduras",
+        grasas:"Grasas",
+        frutas:"Frutas",
+        extras:"Extras"
+    };
+
+    const key = String(categoria || "").trim().toLowerCase();
+    return mapa[key] || categoria || "Extras";
+}
+
+function exportarExcel(){
+    const data = foods.map(food => ({
+        Alimento: food.name,
+        Base: food.base,
+        Proteina: food.protein,
+        Carbohidratos: food.carbs,
+        Grasas: food.fat,
+        Categoria: food.category,
+        Kcal: getKcal(food)
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(wb, ws, "Alimentos");
+    XLSX.writeFile(wb, "macrofagus_daily_alimentos.xlsx");
+}
+
+function importarExcel(event){
+    const file = event.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, {type:"array"});
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet);
+
+        foods = rows.map(row => ({
+            name: String(row.Alimento || "").trim(),
+            base: String(row.Base || "100 g").trim(),
+            protein: Number(row.Proteina || 0),
+            carbs: Number(row.Carbohidratos || 0),
+            fat: Number(row.Grasas || 0),
+            category: normalizarCategoria(row.Categoria)
+        })).filter(food => food.name);
+
+        saveLocal();
+        renderCategories();
+        renderFoods();
+
+        event.target.value = "";
+    };
+
+    reader.readAsArrayBuffer(file);
+}  
+  
 if(!localStorage.getItem("macrofagus_foods")){
     localStorage.setItem("macrofagus_foods", JSON.stringify(foods));
 }
