@@ -137,7 +137,7 @@ body{
 
 .daily-layout{
     display:grid;
-    grid-template-columns:minmax(0,1fr) 280px;
+    grid-template-columns:minmax(0,1fr) 320px;
     gap:14px;
 }
 
@@ -297,6 +297,38 @@ body{
     color:#f8fafc;
     font-size:22px;
 }
+
+.summary-side{
+    align-self:start;
+}
+
+.side-summary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.side-summary-grid .side-card{
+    margin-bottom:0;
+    padding:12px;
+}
+
+.side-summary-grid .side-card.full{
+    grid-column:1 / -1;
+}
+
+.side-summary-grid .side-card span{
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.side-summary-grid .side-card strong{
+    font-size:18px;
+}
+
+.date-card{
+    margin-bottom:12px;
+}  
   
 .side-card input[type="date"]{
     width:100%;
@@ -574,43 +606,44 @@ body{
         <div class="meals" id="mealsBox"></div>
     </main>
 
-    <aside class="panel">
-        <h3>Resumen</h3>
+    <aside class="panel summary-side">
+    <h3>Resumen</h3>
+
+    <div class="side-card date-card">
+        <span>Fecha de registro</span>
+        <input type="date" id="selectedDateInput" onchange="changeSelectedDate()">
+    </div>
+
+    <div class="side-summary-grid">
+        <div class="side-card">
+            <span>Kcal consumidas</span>
+            <strong id="sideKcalConsumed">0 kcal</strong>
+        </div>
 
         <div class="side-card">
-    <span>Fecha de registro</span>
-    <input type="date" id="selectedDateInput" onchange="changeSelectedDate()">
-</div>
+            <span>Kcal restantes</span>
+            <strong id="sideKcalLeft">0 kcal</strong>
+        </div>
 
         <div class="side-card">
-    <span>Kcal consumidas</span>
-    <strong id="sideKcalConsumed">0 kcal</strong>
-</div>
+            <span>Cumplimiento</span>
+            <strong id="sideCompliance">0%</strong>
+        </div>
 
-<div class="side-card">
-    <span>Kcal restantes</span>
-    <strong id="sideKcalLeft">0 kcal</strong>
-</div>
+        <div class="side-card">
+            <span>Comidas</span>
+            <strong id="sideMealsDone">0 de 0</strong>
+        </div>
 
-<div class="side-card">
-    <span>% de cumplimiento</span>
-    <strong id="sideCompliance">0%</strong>
-</div>
+        <div class="side-card full">
+            <span>Alimentos registrados</span>
+            <strong id="foodCount">0</strong>
+        </div>
+    </div>
 
-<div class="side-card">
-    <span>Comidas registradas</span>
-    <strong id="sideMealsDone">0 de 0</strong>
-</div>
-
-<div class="side-card">
-    <span>Alimentos registrados</span>
-    <strong id="foodCount">0</strong>
-</div>
-
-        <button class="btn" onclick="saveDaily()">Guardar día</button>
-        <button class="btn-danger" onclick="clearDaily()">Limpiar registros</button>
-
-        </aside>
+    <button class="btn" onclick="saveDaily()">Guardar día</button>
+    <button class="btn-danger" onclick="clearDaily()">Limpiar registros</button>
+</aside>
 
 </div>
 
