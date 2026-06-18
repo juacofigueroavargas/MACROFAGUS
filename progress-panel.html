@@ -864,17 +864,16 @@ function formatearFecha(fechaISO){
 function calcularDiasActivos(fechaInicio){
     if(!fechaInicio || fechaInicio === "-") return 0;
 
-    const inicio = new Date(fechaInicio);
+    const inicio = new Date(fechaInicio + "T00:00:00");
     const hoy = new Date();
 
-    inicio.setHours(0,0,0,0);
     hoy.setHours(0,0,0,0);
 
     return Math.max(
         1,
-        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24)) + 1
+        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24))
     );
-}  
+}
 
 function calcularDatos(){
     const pesoInicial = parseFloat(progress.pesoInicial);
@@ -1148,26 +1147,43 @@ function renderRutaPesos(){
     const historial = progress.historialPesos || [];
     const ultimo = historial[historial.length - 1];
 
+    const fechaInicio =
+        progress.fechaInicioPlan ||
+        planActivo.fechaInicio ||
+        planActivo.planner?.fechaInicio;
+
     const pasos = [
         {
             label:"Inicio",
             peso:d.pesoInicial,
-            fecha:progress.fechaInicioPlan || planActivo.fechaInicio,
+            fecha:fechaInicio,
             clase:"done"
         },
         {
             label:"Actual",
             peso:d.pesoActual,
-            fecha:ultimo?.fecha,
+            fecha:ultimo?.fecha || fechaInicio,
             clase:"active"
-        },
-        ...data.fechas.slice(0,2).map(item => ({
-            label:"Meta",
-            peso:item.peso,
-            fecha:item.fecha,
-            clase:""
-        }))
+        }
     ];
+
+    const futuras = data.fechas || [];
+
+    if(futuras.length > 1){
+        pasos.push({
+            label:"Siguiente",
+            peso:futuras[0].peso,
+            fecha:futuras[0].fecha,
+            clase:""
+        });
+    }
+
+    pasos.push({
+        label:"Meta",
+        peso:d.pesoObjetivo,
+        fecha:data.fechaObjetivo ? data.fechaObjetivo.toISOString() : "-",
+        clase:""
+    });
 
     pasos.forEach(paso => {
         contenedor.innerHTML += `
@@ -1178,7 +1194,7 @@ function renderRutaPesos(){
             </div>
         `;
     });
-}  
+}
   
 function abrirModal(){
     document.getElementById("modalPeso").style.display = "flex";
