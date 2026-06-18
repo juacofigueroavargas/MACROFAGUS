@@ -457,6 +457,8 @@ body{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:14px;
+    margin-top:4px;
+    margin-bottom:8px;
 }
 
 .quick-actions button{
@@ -908,6 +910,25 @@ justify-content:space-between;
 </div>
         </section>
       
+        <section class="quick-actions" id="quickActions" style="display:none;">
+
+    <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
+    <i class="fa-solid fa-weight-scale"></i>
+    Registrar peso
+</button>
+
+    <button onclick="window.location.href='daily.html'">
+        <i class="fa-solid fa-utensils"></i>
+        Registrar comida
+    </button>
+
+    <button onclick="window.location.href='planner.html?modo=nuevo'">
+        <i class="fa-solid fa-bullseye"></i>
+        Nuevo plan
+    </button>
+
+</section>
+      
         <section class="onboarding-full" id="onboardingCard">
     <div class="onboarding-box">
         <div class="onboarding-icon">
@@ -998,24 +1019,7 @@ justify-content:space-between;
 
 </section>
 
-        <section class="quick-actions" id="quickActions" style="display:none;">
-
-    <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
-    <i class="fa-solid fa-weight-scale"></i>
-    Registrar peso
-</button>
-
-    <button onclick="window.location.href='daily.html'">
-        <i class="fa-solid fa-utensils"></i>
-        Registrar comida
-    </button>
-
-    <button onclick="window.location.href='planner.html?modo=nuevo'">
-        <i class="fa-solid fa-bullseye"></i>
-        Nuevo plan
-    </button>
-
-</section>
+        
   
         <section class="dashboard-grid">
 
