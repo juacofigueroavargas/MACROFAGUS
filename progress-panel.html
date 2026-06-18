@@ -883,8 +883,8 @@ function calcularDiasActivos(fechaInicio){
     hoy.setHours(0,0,0,0);
 
     return Math.max(
-        0,
-        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24))
+        1,
+        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24)) + 1
     );
 }
 
@@ -1120,7 +1120,7 @@ function renderHistorial(){
 
     contenedor.innerHTML = "";
 
-    const ultimos = [...historial].reverse().slice(0,5);
+    const ultimos = [...historial].reverse().slice(0,2);
 
     ultimos.forEach(item => {
         const esInicial = item.tipo === "Inicial";
