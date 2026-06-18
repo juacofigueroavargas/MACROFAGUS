@@ -101,274 +101,345 @@ body{
     color:#94a3b8;
 }
 
-.dashboard{
-    position:relative;
-    margin-top:80px;
-}
-
-.dashboard-track{
-    display:flex;
-    gap:22px;
-    height:100%;
-    overflow-x:auto;
-    overflow-y:hidden;
-    scroll-behavior:smooth;
-    padding:4px 6px 16px;
-    scrollbar-width:none;
+/* LAYOUT PRINCIPAL */
+.progress-layout{
+    display:grid;
+    grid-template-columns:360px 1fr 320px;
+    gap:18px;
     align-items:stretch;
 }
 
-.dashboard-track::-webkit-scrollbar{
-    display:none;
-}
-
-.slider-btn{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:44px;
-    height:44px;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,.10);
-    color:#f8fafc;
-    cursor:pointer;
-    z-index:20;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    backdrop-filter:blur(8px);
-}
-
-.slider-btn:hover{
-    background:rgba(34,197,94,.25);
-}
-
-.slider-btn.left{
-    left:-18px;
-}
-
-.slider-btn.right{
-    right:-18px;
-}  
-  
-.panel{
-    min-width:430px;
-    min-height:450px;
-    height:450px;
-    overflow:hidden;
-    background:rgba(15,23,42,.9);
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:24px;
+/* COLUMNA IZQUIERDA */
+.profile-panel{
+    background:rgba(15,23,42,.88);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:30px;
     padding:22px;
-    box-shadow:0 24px 70px rgba(0,0,0,.28);
 }
 
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    margin-bottom:14px;
-}
-
-.stat-card{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:16px;
-    padding:16px;
-    min-height:122px;
-}
-
-.stat-card span{
-    display:block;
-    color:#94a3b8;
+.status-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(34,197,94,.14);
+    color:#86efac;
     font-size:12px;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+.profile-panel h2{
+    font-size:25px;
+    line-height:1.15;
     margin-bottom:8px;
 }
 
-.stat-card strong{
-    font-size:24px;
-    color:#f8fafc;
-    line-height:1.15;
+.profile-panel p{
+    color:#94a3b8;
+    font-size:14px;
+    margin-bottom:22px;
 }
 
-.stat-card small{
+.weight-ring{
+    width:230px;
+    height:230px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    background:
+        conic-gradient(#22c55e 0 33%, rgba(255,255,255,.08) 33% 100%);
+    display:grid;
+    place-items:center;
+    position:relative;
+}
+
+.weight-ring::after{
+    content:"";
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#0f172a;
+    position:absolute;
+}
+
+.ring-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+}
+
+.ring-content span{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.ring-content strong{
+    display:block;
+    font-size:46px;
+    line-height:1;
+    margin:8px 0;
+}
+
+.ring-content small{
+    color:#86efac;
+    font-weight:900;
+}
+
+.profile-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.mini-stat{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:13px;
+}
+
+.mini-stat span{
+    color:#94a3b8;
+    font-size:12px;
+}
+
+.mini-stat strong{
     display:block;
     margin-top:6px;
-    color:#86efac;
-    font-size:12px;
-    line-height:1.25;
+    font-size:19px;
 }
 
-.progress-box{
-    margin-top:18px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-    padding:16px;
+/* COLUMNA CENTRAL */
+.center-panel{
+    display:grid;
+    gap:18px;
 }
 
-.progress-top{
+.phase-card{
+    background:rgba(15,23,42,.88);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:30px;
+    padding:24px;
+}
+
+.phase-head{
     display:flex;
     justify-content:space-between;
-    margin-bottom:12px;
-    color:#cbd5e1;
-    font-size:14px;
+    align-items:flex-start;
+    gap:18px;
+    margin-bottom:22px;
 }
 
-.progress-bar{
-    height:14px;
+.phase-head h2{
+    font-size:28px;
+}
+
+.phase-head p{
+    color:#94a3b8;
+    margin-top:5px;
+}
+
+.estimate-box{
+    text-align:right;
+}
+
+.estimate-box span{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.estimate-box strong{
+    display:block;
+    font-size:28px;
+    color:#86efac;
+}
+
+.road{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.road::before{
+    content:"";
+    position:absolute;
+    top:33px;
+    left:8%;
+    right:8%;
+    height:4px;
     border-radius:999px;
     background:rgba(255,255,255,.08);
-    overflow:hidden;
 }
 
-.progress-fill{
-    height:100%;
-    width:0%;
+.road-step{
+    position:relative;
+    z-index:2;
+    text-align:center;
+}
+
+.dot{
+    width:68px;
+    height:68px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    margin:0 auto 10px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    font-weight:950;
+}
+
+.road-step.done .dot{
     background:linear-gradient(135deg,#22c55e,#14b8a6);
-    border-radius:999px;
+    color:#052e16;
 }
 
-.plan-title{
-    font-size:19px;
-    margin-bottom:14px;
-}
-
-.plan-card{
-    background:rgba(34,197,94,.10);
-    border:1px solid rgba(34,197,94,.22);
-    border-radius:16px;
-    padding:16px;
-    margin-bottom:12px;
-}
-
-.plan-card span{
-    display:block;
-    color:#94a3b8;
-    font-size:12px;
-    margin-bottom:8px;
-}
-
-.plan-card strong{
-    font-size:22px;
+.road-step.active .dot{
+    background:rgba(34,197,94,.16);
+    border-color:rgba(34,197,94,.35);
     color:#86efac;
 }
 
-.macros{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+.road-step strong{
+    display:block;
+    font-size:15px;
 }
 
-.macro{
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.10);
-    border-radius:16px;
-    padding:12px;
-}
-
-.macro span{
+.road-step span{
     color:#94a3b8;
     font-size:12px;
 }
 
-.macro strong{
-    display:block;
-    margin-top:6px;
-    font-size:18px;
+/* BLOQUE INFERIOR CENTRAL */
+.analysis-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
 }
 
-.btn{
-    width:100%;
-    height:52px;
-    border:0;
-    border-radius:14px;
-    background:linear-gradient(135deg,#22c55e,#14b8a6);
-    color:#052e16;
-    font-weight:900;
-    font-size:15px;
-    cursor:pointer;
-    margin-top:18px;
+.analysis-card{
+    background:rgba(15,23,42,.88);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:26px;
+    padding:20px;
 }
 
-.history{
-    margin-top:20px;
+.analysis-card h3{
+    font-size:20px;
+    margin-bottom:14px;
 }
 
-.history h3{
-    margin-bottom:12px;
-}
-
-.history-list{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    max-height:360px;
-    overflow-y:auto;
-    overflow-x:hidden;
-    padding-right:6px;
-}
-
-.history-item{
+.metric-line{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:12px;
-    padding:10px 12px;
-    min-height:52px;
-    color:#cbd5e1;
-    font-size:14px;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.side-stack{
+.metric-line:last-child{
+    border-bottom:none;
+}
+
+.metric-line span{
+    color:#94a3b8;
+}
+
+.metric-line strong{
+    font-size:17px;
+}
+
+/* COLUMNA DERECHA */
+.side-panel{
     display:grid;
-    gap:22px;
+    gap:18px;
 }
 
-.timeline-list{
+.today-card,
+.records-card{
+    background:rgba(15,23,42,.88);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:28px;
+    padding:20px;
+}
+
+.today-card h3,
+.records-card h3{
+    font-size:20px;
+    margin-bottom:16px;
+}
+
+.today-big{
+    background:
+        linear-gradient(145deg,rgba(34,197,94,.14),rgba(20,184,166,.06));
+    border:1px solid rgba(34,197,94,.18);
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:14px;
+}
+
+.today-big span{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.today-big strong{
+    display:block;
+    margin-top:8px;
+    font-size:30px;
+    color:#86efac;
+}
+
+.record-list{
     display:grid;
     gap:10px;
-    max-height:360px;
-    overflow:auto;
 }
 
-.timeline-item{
+.record{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
     padding:12px;
-    color:#cbd5e1;
-    font-size:14px;
+    border-radius:16px;
+    background:rgba(255,255,255,.06);
 }
 
-.timeline-item strong{
-    color:#f8fafc;
+.record div{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
 }
 
-.timeline-item span{
+.record strong{
+    font-size:16px;
+}
+
+.record span{
     color:#94a3b8;
-    font-size:13px;
+    font-size:12px;
 }
 
-.timeline-note{
+.record-badge{
+    color:#86efac;
+    font-weight:900;
+    font-size:12px;
+}
+
+.warning{
     margin-top:14px;
-    color:#94a3b8;
+    padding:14px;
+    border-radius:18px;
+    background:rgba(245,158,11,.12);
+    border:1px solid rgba(245,158,11,.2);
+    color:#fde68a;
     font-size:13px;
-    line-height:1.5;
+    line-height:1.45;
 }
-  
 .modal-overlay{
     position:fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
+    inset:0;
     background:rgba(0,0,0,.65);
     backdrop-filter:blur(4px);
     display:none;
@@ -377,7 +448,6 @@ body{
     z-index:9999;
     padding:20px;
 }
-
 .modal{
     width:100%;
     max-width:430px;
@@ -476,78 +546,56 @@ body{
     color:#fecaca;
     border:1px solid rgba(239,68,68,.25);
 }
-
-@media(max-width:1000px){
-    .panel{
-        min-width:86vw;
-    }
-
-    .stats-grid{
+@media(max-width:1150px){
+    .progress-layout{
         grid-template-columns:1fr;
     }
 
-    .hero h2{
-        font-size:32px;
+    .analysis-grid{
+        grid-template-columns:1fr;
     }
 }
 
-@media(max-width:600px){
+@media(max-width:700px){
     body{
-        padding:16px;
+        padding:14px;
     }
 
     .header{
         flex-direction:column;
         align-items:flex-start;
-        gap:18px;
+        gap:16px;
     }
 
     .actions{
         width:100%;
-        justify-content:space-between;
-    }
-
-    .macros{
-        grid-template-columns:1fr;
-    }
-
-    .modal-actions{
-        grid-template-columns:1fr;
-    }
-    
-        .dashboard{
-        margin-top:40px;
-    }
-
-    .dashboard-track{
         display:grid;
-        grid-template-columns:1fr;
-        gap:18px;
-        overflow:visible;
-        padding:0;
+        grid-template-columns:1fr 1fr;
     }
 
-    .panel{
-        min-width:100%;
+    .icon-btn{
         width:100%;
-        min-height:auto;
+        justify-content:center;
     }
 
-    .slider-btn{
+    .road{
+        grid-template-columns:1fr;
+    }
+
+    .road::before{
         display:none;
     }
 
-    .stats-grid{
+    .profile-stats{
         grid-template-columns:1fr;
     }
 
-    .hero{
-        margin-top:36px;
+    .phase-head{
+        flex-direction:column;
     }
 
-    .hero h2{
-        font-size:34px;
-        line-height:1.15;
+    .estimate-box{
+        text-align:left;
     }
 }
   
@@ -604,135 +652,88 @@ body{
     </p>
 </section>
 
-    <main class="dashboard">
+    <main class="progress-layout">
 
-    <button class="slider-btn left" onclick="moverDashboard(-1)">
-        <i class="fa-solid fa-chevron-left"></i>
-    </button>
+    <section class="profile-panel">
+        <div class="status-chip" id="estadoChip">Déficit activo</div>
 
-    <div class="dashboard-track" id="dashboardTrack">
+        <h2 id="objetivoPlan">Perder grasa</h2>
+        <p id="fechaInicioPlan">Inicio del plan: --</p>
 
-        <section class="panel">
+        <div class="weight-ring" id="weightRing">
+            <div class="ring-content">
+                <span>Peso actual</span>
+                <strong id="pesoActualRing">0.0</strong>
+                <small>kg</small>
+            </div>
+        </div>
 
-            <h3 class="plan-title">Datos principales</h3>
+        <div class="profile-stats">
+            <div class="mini-stat"><span>Inicial</span><strong id="pesoInicial">0 kg</strong></div>
+            <div class="mini-stat"><span>Objetivo</span><strong id="pesoObjetivo">0 kg</strong></div>
+            <div class="mini-stat"><span>Variación</span><strong id="variacion">0 kg</strong></div>
+            <div class="mini-stat"><span>Faltante</span><strong id="faltante">0 kg</strong></div>
+        </div>
+    </section>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span>Peso inicial</span>
-                    <strong id="pesoInicial">0 kg</strong>
-                    <small>Inicio del plan</small>
+    <section class="center-panel">
+        <div class="phase-card">
+            <div class="phase-head">
+                <div>
+                    <h2>Ruta hacia la meta</h2>
+                    <p id="subtituloRuta">Proyección basada en el ajuste del plan.</p>
                 </div>
 
-                <div class="stat-card">
-                    <span>Peso actual</span>
-                    <strong id="pesoActual">0 kg</strong>
-                    <small>Último registro</small>
-                </div>
-
-                <div class="stat-card">
-                    <span>Peso objetivo</span>
-                    <strong id="pesoObjetivo">0 kg</strong>
-                    <small>Meta definida</small>
+                <div class="estimate-box">
+                    <span>Meta estimada</span>
+                    <strong id="fechaMetaPrincipal">--</strong>
                 </div>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span>Variación</span>
-                    <strong id="variacion">0 kg</strong>
-                    <small>Desde el inicio</small>
-                </div>
+            <div class="road" id="rutaPesos"></div>
+        </div>
 
-                <div class="stat-card">
-                    <span>Faltante</span>
-                    <strong id="faltante">0 kg</strong>
-                    <small>Para llegar al objetivo</small>
-                </div>
+        <div class="analysis-grid">
+            <div class="analysis-card">
+                <h3>Lectura rápida</h3>
 
-                <div class="stat-card">
-                    <span>Avance</span>
-                    <strong id="avance">0%</strong>
-                    <small>Progreso estimado</small>
-                </div>
+                <div class="metric-line"><span>Avance total</span><strong id="avance">0%</strong></div>
+                <div class="metric-line"><span>Días activos</span><strong id="diasActivos">--</strong></div>
+                <div class="metric-line"><span>Ritmo estimado</span><strong id="ritmoKg">--</strong></div>
+                <div class="metric-line"><span>Estado</span><strong style="color:#86efac;">En curso</strong></div>
             </div>
 
-            <div class="progress-box">
-                <div class="progress-top">
-                    <span>Progreso al objetivo</span>
-                    <strong id="avanceTexto">0%</strong>
-                </div>
+            <div class="analysis-card">
+                <h3>Macros del plan</h3>
 
-                <div class="progress-bar">
-                    <div class="progress-fill" id="barraAvance"></div>
-                </div>
+                <div class="metric-line"><span>Calorías</span><strong id="caloriasPlan">0 kcal</strong></div>
+                <div class="metric-line"><span>Proteínas</span><strong id="proteinasPlan">0 g</strong></div>
+                <div class="metric-line"><span>Carbohidratos</span><strong id="carbosPlan">0 g</strong></div>
+                <div class="metric-line"><span>Grasas</span><strong id="grasasPlan">0 g</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="side-panel">
+        <div class="today-card">
+            <h3>Estado actual</h3>
+
+            <div class="today-big">
+                <span>Faltan para llegar</span>
+                <strong id="faltanteLateral">0 kg</strong>
             </div>
 
-        </section>
-
-        <section class="panel">
-
-            <h3 class="plan-title">Plan activo</h3>
-
-            <div class="plan-card">
-                <span>Objetivo</span>
-                <strong id="objetivoPlan">-</strong>
-            </div>
-
-            <div class="plan-card">
+            <div class="today-big">
                 <span>Estado calórico</span>
-                <strong id="estadoCalorico">-</strong>
+                <strong id="estadoCalorico">--</strong>
             </div>
+        </div>
 
-            <div class="plan-card">
-                <span>Calorías totales</span>
-                <strong id="caloriasPlan">0 kcal</strong>
-            </div>
-
-            <div class="macros">
-                <div class="macro">
-                    <span>Proteínas</span>
-                    <strong id="proteinasPlan">0 g</strong>
-                </div>
-
-                <div class="macro">
-                    <span>Carbos</span>
-                    <strong id="carbosPlan">0 g</strong>
-                </div>
-
-                <div class="macro">
-                    <span>Grasas</span>
-                    <strong id="grasasPlan">0 g</strong>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="panel">
-
-            <h3 class="plan-title">Últimos registros</h3>
-
-            <div class="history-list" id="historial"></div>
-
-        </section>
-
-        <section class="panel">
-
-            <h3 class="plan-title">Fechas tentativas</h3>
-
-            <div class="plan-card">
-                <span>Meta Estimada</span>
-                <strong id="ritmoEstimado">-</strong>
-            </div>
-
-            <div class="timeline-list" id="fechasTentativas"></div>
-
-        </section>
-
-    </div>
-
-    <button class="slider-btn right" onclick="moverDashboard(1)">
-        <i class="fa-solid fa-chevron-right"></i>
-    </button>
+        <div class="records-card">
+            <h3>Últimos registros</h3>
+            <div class="record-list" id="historial"></div>
+        </div>
+    </aside>
 
 </main>
 
@@ -859,6 +860,21 @@ function formatearFecha(fechaISO){
 
     return fechaISO;
 }
+  
+function calcularDiasActivos(fechaInicio){
+    if(!fechaInicio || fechaInicio === "-") return 0;
+
+    const inicio = new Date(fechaInicio);
+    const hoy = new Date();
+
+    inicio.setHours(0,0,0,0);
+    hoy.setHours(0,0,0,0);
+
+    return Math.max(
+        1,
+        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24)) + 1
+    );
+}  
 
 function calcularDatos(){
     const pesoInicial = parseFloat(progress.pesoInicial);
@@ -976,82 +992,6 @@ const diasTotales = Math.round(kilosTotales * diasPorKg);
 };
 }
 
-function renderFechasTentativas(){
-    const data = calcularFechasTentativas();
-    if(data.fechaObjetivo){
-    usuarioActivo.progress.fechaMetaEstimada =
-        data.fechaObjetivo.toISOString();
-
-    guardarUsuarioActivo();
-}
-
-    if(data.ritmoTexto === "Mantenimiento"){
-    document.getElementById("ritmoEstimado").innerHTML = `
-        <div style="font-size:28px;font-weight:900;">
-            Mantenimiento
-        </div>
-
-        <div style="
-            margin-top:8px;
-            font-size:14px;
-            color:#94a3b8;
-        ">
-            Sin ajuste calórico
-        </div>
-    `;
-}else{
-    document.getElementById("ritmoEstimado").innerHTML = `
-        <div style="font-size:32px;font-weight:900;">
-            ${formatearFecha(data.fechaObjetivo.toISOString())}
-        </div>
-
-        <div style="
-            margin-top:8px;
-    font-size:14px;
-    color:#94a3b8;
-">
-    ${data.diasTotales} días estimados
-        </div>
-    `;
-}
-
-    const contenedor = document.getElementById("fechasTentativas");
-    contenedor.innerHTML = "";
-
-    if(data.fechas.length === 1 && data.fechas[0].mantenimiento){
-
-    contenedor.innerHTML = `
-        <div class="timeline-item" style="
-            display:block;
-            line-height:1.6;
-        ">
-            Su peso de <strong>${data.fechas[0].peso.toFixed(1)} kg</strong>
-            no debería variar significativamente mientras mantenga sus calorías actuales.
-        </div>
-    `;
-
-    return;
-}
-
-if(data.fechas.length === 0){
-    contenedor.innerHTML = `
-        <div class="timeline-item">
-            <strong>Sin fechas</strong>
-            <span>No hay proyección disponible</span>
-        </div>
-    `;
-    return;
-}
-
-    data.fechas.forEach(item => {
-        contenedor.innerHTML += `
-            <div class="timeline-item">
-                <strong>${parseFloat(item.peso).toFixed(1)} kg</strong>
-                <span>${formatearFecha(item.fecha)}</span>
-            </div>
-        `;
-    });
-}  
 
 function eliminarPeso(id){
     usuarioActivo.progress.historialPesos =
@@ -1095,75 +1035,71 @@ function formatearObjetivo(valor){
     return objetivos[valor] || valor || "-";
 }  
   
-function moverDashboard(direccion){
-    const track = document.getElementById("dashboardTrack");
-    const ancho = 440;
-
-    track.scrollBy({
-        left: direccion * ancho,
-        behavior: "smooth"
-    });
-}  
-  
 function render(){
     const d = calcularDatos();
-
-    document.getElementById("tituloUsuario").textContent =
-    "Seguimiento de " + (plan.nombre || usuarioActivo.nombre);
-
+    const avance = d.avance;
 const fechaInicioMostrar =
     progress.fechaInicioPlan ||
     planActivo.fechaInicio ||
     planActivo.planner?.fechaInicio ||
     "-";
 
-document.getElementById("subtituloUsuario").innerHTML =
-    "Inicio del plan: <strong>" + formatearFecha(fechaInicioMostrar) + "</strong>";
-
-    document.getElementById("pesoInicial").textContent =
-        d.pesoInicial.toFixed(1) + " kg";
-
-    document.getElementById("pesoActual").textContent =
-        d.pesoActual.toFixed(1) + " kg";
-
-    document.getElementById("pesoObjetivo").textContent =
-        d.pesoObjetivo.toFixed(1) + " kg";
-  
-    document.getElementById("variacion").textContent =
-        d.variacion.toFixed(1) + " kg";
-
-    document.getElementById("faltante").textContent =
-        d.faltante.toFixed(1) + " kg";
-
-    document.getElementById("avance").textContent =
-        d.avance + "%";
-
-    document.getElementById("avanceTexto").textContent =
-        d.avance + "%";
-
-    document.getElementById("barraAvance").style.width =
-        d.avance + "%";
-
-    document.getElementById("objetivoPlan").textContent =
+document.getElementById("objetivoPlan").textContent =
     formatearObjetivo(plan.objetivo);
 
-    document.getElementById("estadoCalorico").textContent =
+document.getElementById("fechaInicioPlan").textContent =
+    "Inicio del plan: " + formatearFecha(fechaInicioMostrar);
+
+document.getElementById("pesoActualRing").textContent =
+    d.pesoActual.toFixed(1);
+
+document.getElementById("pesoInicial").textContent =
+    d.pesoInicial.toFixed(1) + " kg";
+
+document.getElementById("pesoObjetivo").textContent =
+    d.pesoObjetivo.toFixed(1) + " kg";
+
+document.getElementById("variacion").textContent =
+    d.variacion.toFixed(1) + " kg";
+
+document.getElementById("faltante").textContent =
+    d.faltante.toFixed(1) + " kg";
+
+document.getElementById("faltanteLateral").textContent =
+    d.faltante.toFixed(1) + " kg";
+
+document.getElementById("avance").textContent =
+    avance + "%";
+
+document.getElementById("estadoCalorico").textContent =
     textoEstadoCalorico();
+
+document.getElementById("caloriasPlan").textContent =
+    plan.caloriasTotales + " kcal";
+
+document.getElementById("proteinasPlan").textContent =
+    plan.macros.proteinasGr + " g";
+
+document.getElementById("carbosPlan").textContent =
+    plan.macros.carbohidratosGr + " g";
+
+document.getElementById("grasasPlan").textContent =
+    plan.macros.grasasGr + " g";
+
+document.getElementById("weightRing").style.background =
+    `conic-gradient(#22c55e 0 ${avance}%, rgba(255,255,255,.08) ${avance}% 100%)`;
+
+
+document.getElementById("diasActivos").textContent =
+    calcularDiasActivos(fechaInicioMostrar) + " días";
+
+document.getElementById("ritmoKg").textContent =
+    plan.ajusteCalorico !== 0
+        ? (7700 / Math.abs(plan.ajusteCalorico)).toFixed(1) + " días/kg"
+        : "Mantenimiento";
   
-    document.getElementById("caloriasPlan").textContent =
-        plan.caloriasTotales + " kcal";
-
-    document.getElementById("proteinasPlan").textContent =
-        plan.macros.proteinasGr + " g";
-
-    document.getElementById("carbosPlan").textContent =
-        plan.macros.carbohidratosGr + " g";
-
-    document.getElementById("grasasPlan").textContent =
-        plan.macros.grasasGr + " g";
-
     renderHistorial();
-    renderFechasTentativas();
+    renderRutaPesos();
 }
 
 function renderHistorial(){
@@ -1178,28 +1114,72 @@ function renderHistorial(){
         const esInicial = item.tipo === "Inicial";
 
         contenedor.innerHTML += `
-            <div class="history-item">
-                <div style="
-    display:flex;
-    align-items:center;
-    gap:10px;
-">
-    <span>${formatearFecha(item.fecha)}</span>
-    <strong>${parseFloat(item.peso).toFixed(1)} kg</strong>
-</div>
+    <div class="record">
+        <div>
+            <strong>${parseFloat(item.peso).toFixed(1)} kg</strong>
+            <span>${formatearFecha(item.fecha)}</span>
+        </div>
 
-                ${
-                    esInicial
-                    ? `<small style="color:#86efac;font-weight:800;">Inicial</small>`
-                    : `<button class="delete-weight" onclick="eliminarPeso(${item.id})">
-                            <i class="fa-solid fa-trash"></i>
-                       </button>`
-                }
-            </div>
-        `;
+        ${
+            esInicial
+            ? `<span class="record-badge">Inicial</span>`
+            : `<button class="delete-weight" onclick="eliminarPeso(${item.id})">
+                    <i class="fa-solid fa-trash"></i>
+               </button>`
+        }
+    </div>
+`;
     });
 }
 
+function renderRutaPesos(){
+    const data = calcularFechasTentativas();
+    const contenedor = document.getElementById("rutaPesos");
+
+    contenedor.innerHTML = "";
+
+    const d = calcularDatos();
+
+    if(data.fechaObjetivo){
+        document.getElementById("fechaMetaPrincipal").textContent =
+            formatearFecha(data.fechaObjetivo.toISOString());
+    }
+
+    const historial = progress.historialPesos || [];
+    const ultimo = historial[historial.length - 1];
+
+    const pasos = [
+        {
+            label:"Inicio",
+            peso:d.pesoInicial,
+            fecha:progress.fechaInicioPlan || planActivo.fechaInicio,
+            clase:"done"
+        },
+        {
+            label:"Actual",
+            peso:d.pesoActual,
+            fecha:ultimo?.fecha,
+            clase:"active"
+        },
+        ...data.fechas.slice(0,2).map(item => ({
+            label:"Meta",
+            peso:item.peso,
+            fecha:item.fecha,
+            clase:""
+        }))
+    ];
+
+    pasos.forEach(paso => {
+        contenedor.innerHTML += `
+            <div class="road-step ${paso.clase}">
+                <div class="dot">${parseFloat(paso.peso).toFixed(0)}</div>
+                <strong>${paso.label}</strong>
+                <span>${formatearFecha(paso.fecha)}</span>
+            </div>
+        `;
+    });
+}  
+  
 function abrirModal(){
     document.getElementById("modalPeso").style.display = "flex";
     document.body.style.overflow = "hidden";
