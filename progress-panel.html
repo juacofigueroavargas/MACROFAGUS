@@ -302,7 +302,7 @@ body{
 
 .history-list{
     display:grid;
-    gap:10px;
+    gap:6px;
     height:360px;
     max-height:360px;
     overflow-y:auto;
@@ -313,10 +313,12 @@ body{
 .history-item{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     background:rgba(255,255,255,.05);
     border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
-    padding:12px;
+    border-radius:12px;
+    padding:8px 12px;
+    min-height:54px;
     color:#cbd5e1;
     font-size:14px;
 }
@@ -1177,10 +1179,14 @@ function renderHistorial(){
 
         contenedor.innerHTML += `
             <div class="history-item">
-                <div>
-                    <span>${formatearFecha(item.fecha)}</span>
-                    <strong>${parseFloat(item.peso).toFixed(1)} kg</strong>
-                </div>
+                <div style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+">
+    <span>${formatearFecha(item.fecha)}</span>
+    <strong>${parseFloat(item.peso).toFixed(1)} kg</strong>
+</div>
 
                 ${
                     esInicial
