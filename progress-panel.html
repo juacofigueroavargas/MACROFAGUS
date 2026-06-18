@@ -258,7 +258,7 @@ body{
 .road{
     position:relative;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:14px;
 }
 
@@ -1153,37 +1153,27 @@ function renderRutaPesos(){
         planActivo.planner?.fechaInicio;
 
     const pasos = [
-        {
-            label:"Inicio",
-            peso:d.pesoInicial,
-            fecha:fechaInicio,
-            clase:"done"
-        },
-        {
-            label:"Actual",
-            peso:d.pesoActual,
-            fecha:ultimo?.fecha || fechaInicio,
-            clase:"active"
-        }
-    ];
-
-    const futuras = data.fechas || [];
-
-    if(futuras.length > 1){
-        pasos.push({
-            label:"Siguiente",
-            peso:futuras[0].peso,
-            fecha:futuras[0].fecha,
-            clase:""
-        });
-    }
-
-    pasos.push({
+    {
+        label:"Inicio",
+        peso:d.pesoInicial,
+        fecha:fechaInicio,
+        clase:"done"
+    },
+    {
+        label:"Actual",
+        peso:d.pesoActual,
+        fecha:ultimo?.fecha || fechaInicio,
+        clase:"active"
+    },
+    {
         label:"Meta",
         peso:d.pesoObjetivo,
-        fecha:data.fechaObjetivo ? data.fechaObjetivo.toISOString() : "-",
+        fecha:data.fechaObjetivo
+            ? data.fechaObjetivo.toISOString()
+            : "-",
         clase:""
-    });
+    }
+];
 
     pasos.forEach(paso => {
         contenedor.innerHTML += `
