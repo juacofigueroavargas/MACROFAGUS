@@ -1474,6 +1474,38 @@ function cargarMacrosHoy(usuarioActivo){
     actualizarMacro("macroGrasasTexto", "macroGrasasFill", consumido.grasas, objetivoGrasas);
 }
 
+function calcularFechaMetaEstimada(planner, progress, plan){
+    const registros = progress.historialPesos || [];
+    const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
+    const pesoObjetivo = Number(progress.pesoObjetivo || planner.pesoObjetivo || 0);
+
+    const ajusteBase = Math.abs(Number(
+        planner.ajusteCalorico ||
+        planner.ajusteCalorias ||
+        planner.deficit ||
+        planner.superavit ||
+        0
+    ));
+
+    if(!pesoInicial || !pesoObjetivo || !ajusteBase) return null;
+
+    const fechaInicio =
+        registros[0]?.fecha ||
+        progress.fechaInicioPlan ||
+        plan?.fechaInicio ||
+        planner.fechaInicio;
+
+    if(!fechaInicio) return null;
+
+    const kilosTotales = Math.abs(pesoInicial - pesoObjetivo);
+    const diasTotales = Math.round(kilosTotales * (7700 / ajusteBase));
+
+    const fecha = new Date(String(fechaInicio).split("T")[0] + "T00:00:00");
+    fecha.setDate(fecha.getDate() + diasTotales);
+
+    return fecha.toISOString();
+}  
+  
 function cargarEstadoGeneral(usuarioActivo){
     const datosActivos = obtenerPlanActivo(usuarioActivo);
     const planner = datosActivos.planner;
@@ -1499,7 +1531,7 @@ function cargarEstadoGeneral(usuarioActivo){
     planner.fechaObjetivo ||
     datosActivos.plan?.fechaMeta ||
     datosActivos.plan?.fechaObjetivo ||
-    null;
+    calcularFechaMetaEstimada(planner, progress, datosActivos.plan);
 
     const pesoInicial = Number(planner.peso || planner.pesoInicial || progress.pesoInicial || 0);
     const pesoActual = Number(
@@ -1591,13 +1623,13 @@ function cargarResumenRapido(usuarioActivo){
         "--";
 
     const fechaMeta =
-        progress.fechaMetaEstimada ||
-        progress.fechaObjetivo ||
-        planner.fechaMeta ||
-        planner.fechaObjetivo ||
-        plan.fechaMeta ||
-        plan.fechaObjetivo ||
-        null;
+    progress.fechaMetaEstimada ||
+    progress.fechaObjetivo ||
+    planner.fechaMeta ||
+    planner.fechaObjetivo ||
+    plan.fechaMeta ||
+    plan.fechaObjetivo ||
+    calcularFechaMetaEstimada(planner, progress, plan);
 
     contenedor.innerHTML = `
         <div class="summary-row">
