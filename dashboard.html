@@ -457,8 +457,6 @@ body{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:14px;
-    margin-top:4px;
-    margin-bottom:8px;
 }
 
 .quick-actions button{
@@ -899,35 +897,19 @@ justify-content:space-between;
             </div>
 
             <div class="user-card top-user-card">
-    <div class="user-left">
-        <div class="user-avatar" id="userAvatar">J</div>
+              <div class="user-left">
+                <div class="user-avatar" id="userAvatar">J</div>
 
-        <div class="user-info">
-            <strong id="nombreUsuarioActivo">Usuario</strong>
-            <span id="usuarioActivo">@usuario</span>
-        </div>
-    </div>
-</div>
+                 <div class="user-info">
+                     <strong id="nombreUsuarioActivo">Usuario</strong>
+                     <span id="usuarioActivo">@usuario</span>
+                 </div>
+              </div>
+            </div>
+          
         </section>
       
-        <section class="quick-actions" id="quickActions" style="display:none;">
-
-    <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
-    <i class="fa-solid fa-weight-scale"></i>
-    Registrar peso
-</button>
-
-    <button onclick="window.location.href='daily.html'">
-        <i class="fa-solid fa-utensils"></i>
-        Registrar comida
-    </button>
-
-    <button onclick="window.location.href='planner.html?modo=nuevo'">
-        <i class="fa-solid fa-bullseye"></i>
-        Nuevo plan
-    </button>
-
-</section>
+        
       
         <section class="onboarding-full" id="onboardingCard">
     <div class="onboarding-box">
@@ -963,7 +945,26 @@ justify-content:space-between;
     </div>
 </section>
 <div class="dashboard-content" id="dashboardContent">
-<section class="hero">
+<section class="quick-actions" id="quickActions" style="display:none;">
+
+          <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
+            <i class="fa-solid fa-weight-scale"></i>
+            Registrar peso
+          </button>
+
+          <button onclick="window.location.href='daily.html'">
+            <i class="fa-solid fa-utensils"></i>
+            Registrar comida
+          </button>
+
+          <button onclick="window.location.href='planner.html?modo=nuevo'">
+            <i class="fa-solid fa-bullseye"></i>
+            Nuevo plan
+          </button>
+
+        </section>
+  
+  <section class="hero">
 
     <div class="progress-card">
         <div class="badge" id="planBadge">--</div>
