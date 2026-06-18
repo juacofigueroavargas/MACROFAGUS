@@ -457,40 +457,33 @@ body{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:14px;
-    margin-top:0;
 }
 
 .quick-actions button{
-    height:42px;
+    height:44px;
     border:none;
-    border-radius:16px;
-    color:white;
+    border-radius:14px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.10);
+    color:#f8fafc;
     font-size:14px;
-    font-weight:900;
+    font-weight:850;
     cursor:pointer;
-
     display:flex;
     align-items:center;
     justify-content:center;
     gap:10px;
-
-    background:linear-gradient(135deg,rgba(34,197,94,.9),rgba(20,184,166,.9));
-    box-shadow:0 10px 24px rgba(0,0,0,.18);
-    transition:.2s;
 }
 
-.quick-actions button:nth-child(3){
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.12);
-}
-
-.quick-actions button:hover{
-    transform:translateY(-2px);
-    filter:brightness(1.08);
+.quick-actions button:first-child,
+.quick-actions button:nth-child(2){
+    background:rgba(34,197,94,.13);
+    color:#86efac;
+    border:1px solid rgba(34,197,94,.22);
 }
 
 .quick-actions button i{
-    color:white;
+    color:inherit;
 }
   
 /* ONBOARDING INICIAL */
@@ -693,6 +686,22 @@ justify-content:space-between;
     background:rgba(34,197,94,.16);
     color:#86efac;
 }  
+
+.dashboard-content{
+    min-height:0;
+}
+
+.hero{
+    align-items:stretch;
+}
+
+.summary-card{
+    height:100%;
+}
+
+.progress-card{
+    height:100%;
+}  
   
 /* RESPONSIVE */
 @media(max-width:1000px){
@@ -728,6 +737,7 @@ justify-content:space-between;
 
     .main{
         gap:14px;
+        overflow:visible;
     }
 
     .header{
@@ -757,15 +767,14 @@ justify-content:space-between;
     }
   
     .quick-actions{
-    display:grid;
     grid-template-columns:1fr;
     gap:12px;
-    }
+}
 
-    .quick-actions button{
+.quick-actions button{
     width:100%;
-    height:44px;
-    }
+    height:48px;
+}
   
     .hero{
     grid-template-columns:1fr;
@@ -989,6 +998,25 @@ justify-content:space-between;
 
 </section>
 
+        <section class="quick-actions" id="quickActions" style="display:none;">
+
+    <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
+    <i class="fa-solid fa-weight-scale"></i>
+    Registrar peso
+</button>
+
+    <button onclick="window.location.href='daily.html'">
+        <i class="fa-solid fa-utensils"></i>
+        Registrar comida
+    </button>
+
+    <button onclick="window.location.href='planner.html?modo=nuevo'">
+        <i class="fa-solid fa-bullseye"></i>
+        Nuevo plan
+    </button>
+
+</section>
+  
         <section class="dashboard-grid">
 
     <div class="card">
@@ -1024,24 +1052,7 @@ justify-content:space-between;
 
 </section>
       </div>
-<section class="quick-actions" id="quickActions" style="display:none;">
 
-    <button onclick="window.location.href='progress-panel.html?abrirPeso=1'">
-    <i class="fa-solid fa-weight-scale"></i>
-    Registrar peso
-</button>
-
-    <button onclick="window.location.href='daily.html'">
-        <i class="fa-solid fa-utensils"></i>
-        Registrar comida
-    </button>
-
-    <button onclick="window.location.href='planner.html?modo=nuevo'">
-        <i class="fa-solid fa-bullseye"></i>
-        Nuevo plan
-    </button>
-
-</section>
 
 </main>
 
@@ -1259,7 +1270,7 @@ cargarResumenRapido(usuarioActivo);
         Number(progress.pesoActual || 0) > 0;
 
     document.getElementById("quickActions").style.display =
-        tienePlanner && tieneProgress ? "flex" : "none";
+    tienePlanner && tieneProgress ? "grid" : "none";
 }
   
 function cargarPlanActivo(usuarioActivo){
